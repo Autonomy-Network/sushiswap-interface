@@ -1,4 +1,12 @@
-import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
+import {
+  Field,
+  replaceSwapState,
+  selectCurrency,
+  setRecipient,
+  switchCurrencies,
+  typeInput,
+  limitOrder,
+} from './actions'
 
 import { createReducer } from '@reduxjs/toolkit'
 
@@ -13,6 +21,7 @@ export interface SwapState {
   }
   // the typed recipient address or ENS name, or null if swap should go to sender
   readonly recipient: string | null
+  readonly limitOrderValue: string
 }
 
 const initialState: SwapState = {
@@ -25,6 +34,7 @@ const initialState: SwapState = {
     currencyId: '',
   },
   recipient: null,
+  limitOrderValue: '',
 }
 
 export default createReducer<SwapState>(initialState, (builder) =>
@@ -42,6 +52,7 @@ export default createReducer<SwapState>(initialState, (builder) =>
           independentField: field,
           typedValue: typedValue,
           recipient,
+          limitOrderValue: '',
         }
       }
     )
@@ -81,5 +92,11 @@ export default createReducer<SwapState>(initialState, (builder) =>
     })
     .addCase(setRecipient, (state, { payload: { recipient } }) => {
       state.recipient = recipient
+    })
+    .addCase(limitOrder, (state, { payload: { limitOrderValue } }) => {
+      return {
+        ...state,
+        limitOrderValue,
+      }
     })
 )

@@ -1,6 +1,6 @@
 import { AlertTriangle, ArrowDown } from 'react-feather'
 import { Currency, Percent, TradeType, Trade as V2Trade } from '@sushiswap/sdk'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { isAddress, shortenAddress } from '../../functions'
 
 import { AdvancedSwapDetails } from './AdvancedSwapDetails'
@@ -15,6 +15,8 @@ import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
 import { useLingui } from '@lingui/react'
 import { useUSDCValue } from '../../hooks/useUSDCPrice'
 import { warningSeverity } from '../../functions'
+import { useSwapState } from '../../state/swap/hooks'
+import { useUserLimitOrder } from '../../state/user/hooks'
 
 export default function SwapModalHeader({
   trade,
@@ -40,6 +42,13 @@ export default function SwapModalHeader({
 
   const priceImpactSeverity = warningSeverity(trade.priceImpact)
 
+  const [limitOrder] = useUserLimitOrder()
+  const { limitOrderValue } = useSwapState()
+  const isLimitOrderSafe = useMemo(() => {
+    const marketOutputValue = trade.outputAmount.toSignificant(6)
+    return parseFloat(marketOutputValue) >= parseFloat(limitOrderValue)
+  }, [trade, limitOrderValue])
+
   return (
     <div className="grid gap-4">
       <div className="grid gap-2">
@@ -64,6 +73,12 @@ export default function SwapModalHeader({
               }`}
             >
               {trade.outputAmount.toSignificant(6)}
+              {limitOrder && (
+                <span className={`text-sm ${isLimitOrderSafe ? 'text-green' : 'text-red'}`}>
+                  {' '}
+                  (Limit: {limitOrderValue})
+                </span>
+              )}
             </div>
           </div>
           <div className="ml-3 text-2xl font-medium text-high-emphesis">{trade.outputAmount.currency.symbol}</div>

@@ -22,6 +22,7 @@ import {
   useUserSingleHopOnly,
   useUserSlippageTolerance,
   useUserTransactionTTL,
+  useUserLimitOrder,
 } from '../../../state/user/hooks'
 import { useNetworkModalToggle, useToggleSettingsMenu, useWalletModalToggle } from '../../../state/application/hooks'
 import useWrapCallback, { WrapType } from '../../../hooks/useWrapCallback'
@@ -114,7 +115,7 @@ export default function Swap() {
   const doArcher = archerRelay !== undefined && useArcher
 
   // swap state
-  const { independentField, typedValue, recipient } = useSwapState()
+  const { independentField, typedValue, recipient, limitOrderValue } = useSwapState()
   const {
     v2Trade,
     currencyBalances,
@@ -152,7 +153,7 @@ export default function Swap() {
   const fiatValueOutput = useUSDCValue(parsedAmounts[Field.OUTPUT])
   const priceImpact = computeFiatValuePriceImpact(fiatValueInput, fiatValueOutput)
 
-  const { onSwitchTokens, onCurrencySelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
+  const { onSwitchTokens, onCurrencySelection, onUserInput, onChangeRecipient, onLimitOrder } = useSwapActionHandlers()
 
   const isValid = !swapInputError
 
@@ -257,6 +258,8 @@ export default function Swap() {
   )
 
   const [singleHopOnly] = useUserSingleHopOnly()
+
+  const [limitOrder] = useUserLimitOrder()
 
   const handleSwap = useCallback(() => {
     if (!swapCallback) {
@@ -524,8 +527,8 @@ export default function Swap() {
 
           <div>
             <CurrencyInputPanel
-              value={formattedAmounts[Field.OUTPUT]}
-              onUserInput={handleTypeOutput}
+              value={limitOrder ? limitOrderValue : formattedAmounts[Field.OUTPUT]}
+              onUserInput={(value) => (limitOrder ? onLimitOrder(value) : handleTypeOutput(value))}
               label={independentField === Field.INPUT && !showWrap ? i18n._(t`Swap To (est.):`) : i18n._(t`Swap To:`)}
               showMaxButton={false}
               hideBalance={false}

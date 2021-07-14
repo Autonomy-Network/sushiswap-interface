@@ -18,6 +18,7 @@ import {
   updateUserExpertMode,
   updateUserSingleHopOnly,
   updateUserSlippageTolerance,
+  updateUserLimitOrder,
 } from './actions'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useAppDispatch, useAppSelector } from '../hooks'
@@ -399,4 +400,19 @@ export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: Pe
     () => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage),
     [allowedSlippage, defaultSlippageTolerance]
   )
+}
+
+export function useUserLimitOrder(): [boolean, (newLimitOrder: boolean) => void] {
+  const dispatch = useAppDispatch()
+
+  const limitOrder = useAppSelector((state) => state.user.userLimitOrder)
+
+  const setLimitOrder = useCallback(
+    (newLimitOrder: boolean) => {
+      dispatch(updateUserLimitOrder({ userLimitOrder: newLimitOrder }))
+    },
+    [dispatch]
+  )
+
+  return [limitOrder, setLimitOrder]
 }

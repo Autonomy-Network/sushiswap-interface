@@ -6,7 +6,15 @@ import { DEFAULT_ARCHER_ETH_TIP, DEFAULT_ARCHER_GAS_ESTIMATE } from '../../const
 //   SuccessfulCall,
 //   useSwapCallArguments,
 // } from "../../hooks/useSwapCallback";
-import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
+import {
+  Field,
+  replaceSwapState,
+  selectCurrency,
+  setRecipient,
+  switchCurrencies,
+  typeInput,
+  limitOrder,
+} from './actions'
 import { isAddress, isZero } from '../../functions/validate'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { useCallback, useEffect, useState } from 'react'
@@ -48,6 +56,7 @@ export function useSwapActionHandlers(): {
   onSwitchTokens: () => void
   onUserInput: (field: Field, typedValue: string) => void
   onChangeRecipient: (recipient: string | null) => void
+  onLimitOrder: (limitOrderValue: string) => void
 } {
   const dispatch = useAppDispatch()
   const onCurrencySelection = useCallback(
@@ -84,11 +93,19 @@ export function useSwapActionHandlers(): {
     [dispatch]
   )
 
+  const onLimitOrder = useCallback(
+    (limitOrderValue: string) => {
+      dispatch(limitOrder({ limitOrderValue }))
+    },
+    [dispatch]
+  )
+
   return {
     onSwitchTokens,
     onCurrencySelection,
     onUserInput,
     onChangeRecipient,
+    onLimitOrder,
   }
 }
 
@@ -356,6 +373,7 @@ export function queryParametersToSwapState(parsedQs: ParsedQs, chainId: ChainId 
     typedValue: parseTokenAmountURLParameter(parsedQs.exactAmount),
     independentField: parseIndependentFieldURLParameter(parsedQs.exactField),
     recipient,
+    limitOrderValue: '',
   }
 }
 

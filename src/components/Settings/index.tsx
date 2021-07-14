@@ -4,6 +4,7 @@ import {
   useUserArcherUseRelay,
   useUserSingleHopOnly,
   useUserTransactionTTL,
+  useUserLimitOrder,
 } from '../../state/user/hooks'
 import { useModalOpen, useToggleSettingsMenu } from '../../state/application/hooks'
 
@@ -41,6 +42,8 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
   const [ttl, setTtl] = useUserTransactionTTL()
 
   const [userUseArcher, setUserUseArcher] = useUserArcherUseRelay()
+
+  const [limitOrder, setLimitOrder] = useUserLimitOrder()
 
   return (
     <div className="flex relative" ref={node}>
@@ -134,6 +137,15 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
                 />
               </div>
             )}
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <Typography variant="sm" className="text-primary">
+                  {i18n._(t`Limit Order`)}
+                </Typography>
+                <QuestionHelper text={i18n._(t`Powered by Autonomy Network.`)} />
+              </div>
+              <Toggle id="toggle-limit-order" isActive={limitOrder} toggle={() => setLimitOrder(!limitOrder)} />
+            </div>
           </div>
         </div>
       )}
