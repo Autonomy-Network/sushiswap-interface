@@ -154,7 +154,7 @@ msgstr ""
 msgid "Amount of Tokens"
 msgstr "代幣數量"
 
-#: src/hooks/useSwapCallback.ts:205
+#: src/hooks/useSwapCallback.ts:377
 msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note fee on transfer and rebase tokens are incompatible with Uniswap V3."
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr "批準Kashi"
 
 #: src/pages/exchange/add/[[...tokens]].tsx:479
 #: src/pages/exchange/add/[[...tokens]].tsx:496
-#: src/pages/exchange/swap/[[...tokens]].tsx:609
+#: src/pages/exchange/swap/[[...tokens]].tsx:611
 msgid "Approve {0}"
 msgstr "批准{0}"
 
@@ -780,7 +780,7 @@ msgstr "余額不足"
 #~ msgid "Insufficient WETH balance"
 #~ msgstr "WETH餘額不足"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:594
+#: src/pages/exchange/swap/[[...tokens]].tsx:596
 msgid "Insufficient liquidity for this trade"
 msgstr "該交易的流動性不足"
 
@@ -1236,11 +1236,11 @@ msgstr ""
 msgid "Price Impact"
 msgstr "價格影響"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:639
+#: src/pages/exchange/swap/[[...tokens]].tsx:641
 msgid "Price Impact High"
 msgstr "價格影響高"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:668
+#: src/pages/exchange/swap/[[...tokens]].tsx:670
 msgid "Price Impact Too High"
 msgstr "價格影響過高"
 
@@ -1273,7 +1273,7 @@ msgstr "删除"
 msgid "Remove Liquidity"
 msgstr "移除流動性"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:521
+#: src/pages/exchange/swap/[[...tokens]].tsx:523
 msgid "Remove recipient"
 msgstr ""
 
@@ -1482,36 +1482,36 @@ msgstr "Sushi是開源協議的支持者。"
 #~ msgid "SushiBar: Make SUSHI work for you"
 #~ msgstr "SushiBar：讓SUSHI為您工作"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:431
+#: src/pages/exchange/swap/[[...tokens]].tsx:433
 msgid "SushiSwap"
 msgstr ""
 
 #: src/components/ExchangeHeader.tsx:49
 #: src/components/Header/index.tsx:48
 #: src/components/Header/index.tsx:282
-#: src/pages/exchange/swap/[[...tokens]].tsx:642
-#: src/pages/exchange/swap/[[...tokens]].tsx:671
+#: src/pages/exchange/swap/[[...tokens]].tsx:644
+#: src/pages/exchange/swap/[[...tokens]].tsx:673
 msgid "Swap"
 msgstr "代幣兌換"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:641
-#: src/pages/exchange/swap/[[...tokens]].tsx:670
+#: src/pages/exchange/swap/[[...tokens]].tsx:643
+#: src/pages/exchange/swap/[[...tokens]].tsx:672
 msgid "Swap Anyway"
 msgstr "仍要交換"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:472
+#: src/pages/exchange/swap/[[...tokens]].tsx:474
 msgid "Swap From (est.):"
 msgstr "交換自（估計）："
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:472
+#: src/pages/exchange/swap/[[...tokens]].tsx:474
 msgid "Swap From:"
 msgstr "交換自："
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:532
+#: src/pages/exchange/swap/[[...tokens]].tsx:534
 msgid "Swap To (est.):"
 msgstr "交換至（估算）："
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:532
+#: src/pages/exchange/swap/[[...tokens]].tsx:534
 msgid "Swap To:"
 msgstr "交換至："
 
@@ -1522,7 +1522,7 @@ msgstr "交換至："
 msgid "TVL"
 msgstr "TVL"
 
-#: src/hooks/useSwapCallback.ts:195
+#: src/hooks/useSwapCallback.ts:367
 msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
 msgstr ""
 
@@ -1535,7 +1535,7 @@ msgstr "因為交易規模所導致的市場價格和您的價格之間的差距
 #~ msgid "The difference between the market price and your price due to trade size."
 #~ msgstr "因為交易規模所導致的市場價格和您的價格之間的差距。"
 
-#: src/hooks/useSwapCallback.ts:191
+#: src/hooks/useSwapCallback.ts:363
 msgid "The input token cannot be transferred. There may be an issue with the input token."
 msgstr ""
 
@@ -1543,8 +1543,8 @@ msgstr ""
 msgid "The onchain oracle that tracks the pricing for this pair"
 msgstr "鏈上預言機追蹤這個交易對的價格"
 
-#: src/hooks/useSwapCallback.ts:193
-#: src/hooks/useSwapCallback.ts:201
+#: src/hooks/useSwapCallback.ts:365
+#: src/hooks/useSwapCallback.ts:373
 msgid "The output token cannot be transferred. There may be an issue with the output token."
 msgstr ""
 
@@ -1553,7 +1553,7 @@ msgstr ""
 #~ msgid "The transaction cannot succeed due to error: {0}. This is probably an issue with one of the tokens you are swapping."
 #~ msgstr "交易未成功因为错误: {0}。可能是因为您交换中的一个代币所导致的。"
 
-#: src/hooks/useSwapCallback.ts:186
+#: src/hooks/useSwapCallback.ts:358
 msgid "The transaction could not be sent because the deadline has passed. Please check that your transaction deadline is not too low."
 msgstr ""
 
@@ -1569,11 +1569,11 @@ msgstr "SUSHI可以做的事情"
 msgid "This token doesn't appear on the active token list(s). Make sure this is the token that you want to trade."
 msgstr ""
 
-#: src/hooks/useSwapCallback.ts:199
+#: src/hooks/useSwapCallback.ts:371
 msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance."
 msgstr ""
 
-#: src/hooks/useSwapCallback.ts:189
+#: src/hooks/useSwapCallback.ts:361
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
 msgstr "交易未成功，可能因為價格變動，也可能轉賬中產生的費用。請提高您可接受的滑點。"
 
@@ -1660,7 +1660,7 @@ msgstr "交易期限"
 #~ msgid "Transactions"
 #~ msgstr "交易"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:595
+#: src/pages/exchange/swap/[[...tokens]].tsx:597
 msgid "Try enabling multi-hop trades"
 msgstr "嘗試啟用多跳交易"
 
@@ -1671,7 +1671,7 @@ msgstr "開啟專家模式"
 #~ msgid "Unknown error"
 #~ msgstr "未知錯誤"
 
-#: src/hooks/useSwapCallback.ts:207
+#: src/hooks/useSwapCallback.ts:379
 msgid "Unknown error{0}. Try increasing your slippage tolerance."
 msgstr ""
 
@@ -1686,11 +1686,11 @@ msgid "Unstaked"
 msgstr "解除質押"
 
 #: src/pages/exchange/add/[[...tokens]].tsx:453
-#: src/pages/exchange/swap/[[...tokens]].tsx:579
+#: src/pages/exchange/swap/[[...tokens]].tsx:581
 msgid "Unsupported Asset"
 msgstr "不支持的資產"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:589
+#: src/pages/exchange/swap/[[...tokens]].tsx:591
 msgid "Unwrap"
 msgstr "解開"
 
@@ -1809,7 +1809,7 @@ msgstr "提取"
 #~ msgid "Withdraw {assetSymbol}"
 #~ msgstr "提現{assetSymbol}"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:587
+#: src/pages/exchange/swap/[[...tokens]].tsx:589
 msgid "Wrap"
 msgstr "包裹"
 

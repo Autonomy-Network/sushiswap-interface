@@ -155,7 +155,7 @@ msgstr ""
 msgid "Amount of Tokens"
 msgstr "Số lượng token"
 
-#: src/hooks/useSwapCallback.ts:205
+#: src/hooks/useSwapCallback.ts:377
 msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note fee on transfer and rebase tokens are incompatible with Uniswap V3."
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr "Phê duyệt Kashi"
 
 #: src/pages/exchange/add/[[...tokens]].tsx:479
 #: src/pages/exchange/add/[[...tokens]].tsx:496
-#: src/pages/exchange/swap/[[...tokens]].tsx:609
+#: src/pages/exchange/swap/[[...tokens]].tsx:611
 msgid "Approve {0}"
 msgstr "Phê duyệt {0}"
 
@@ -808,7 +808,7 @@ msgstr "Số dư không đủ"
 #~ msgid "Insufficient WETH balance"
 #~ msgstr "Số dư WETH không đủ"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:594
+#: src/pages/exchange/swap/[[...tokens]].tsx:596
 msgid "Insufficient liquidity for this trade"
 msgstr "Không đủ thanh khoản cho giao dịch này"
 
@@ -1272,11 +1272,11 @@ msgstr ""
 msgid "Price Impact"
 msgstr "Tác động giá"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:639
+#: src/pages/exchange/swap/[[...tokens]].tsx:641
 msgid "Price Impact High"
 msgstr "Tác động giá cao"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:668
+#: src/pages/exchange/swap/[[...tokens]].tsx:670
 msgid "Price Impact Too High"
 msgstr "Tác động giá quá cao"
 
@@ -1309,7 +1309,7 @@ msgstr "Xóa"
 msgid "Remove Liquidity"
 msgstr "Xóa thanh khoản"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:521
+#: src/pages/exchange/swap/[[...tokens]].tsx:523
 msgid "Remove recipient"
 msgstr ""
 
@@ -1522,36 +1522,36 @@ msgstr "Sushi là người ủng hộ Mã nguồn mở."
 #~ msgid "SushiBar: Make SUSHI work for you"
 #~ msgstr "SushiBar: Tận dụng SUSHI của bạn"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:431
+#: src/pages/exchange/swap/[[...tokens]].tsx:433
 msgid "SushiSwap"
 msgstr ""
 
 #: src/components/ExchangeHeader.tsx:49
 #: src/components/Header/index.tsx:48
 #: src/components/Header/index.tsx:282
-#: src/pages/exchange/swap/[[...tokens]].tsx:642
-#: src/pages/exchange/swap/[[...tokens]].tsx:671
+#: src/pages/exchange/swap/[[...tokens]].tsx:644
+#: src/pages/exchange/swap/[[...tokens]].tsx:673
 msgid "Swap"
 msgstr "Hoán đổi"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:641
-#: src/pages/exchange/swap/[[...tokens]].tsx:670
+#: src/pages/exchange/swap/[[...tokens]].tsx:643
+#: src/pages/exchange/swap/[[...tokens]].tsx:672
 msgid "Swap Anyway"
 msgstr "Vẫn hoán đổi"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:472
+#: src/pages/exchange/swap/[[...tokens]].tsx:474
 msgid "Swap From (est.):"
 msgstr "Hoán đổi từ (ước tính):"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:472
+#: src/pages/exchange/swap/[[...tokens]].tsx:474
 msgid "Swap From:"
 msgstr "Hoán đổi từ:"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:532
+#: src/pages/exchange/swap/[[...tokens]].tsx:534
 msgid "Swap To (est.):"
 msgstr "Hoán đổi sang (ước tính):"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:532
+#: src/pages/exchange/swap/[[...tokens]].tsx:534
 msgid "Swap To:"
 msgstr "Hoán đổi sang:"
 
@@ -1563,7 +1563,7 @@ msgstr "Hoán đổi sang:"
 msgid "TVL"
 msgstr "TVL"
 
-#: src/hooks/useSwapCallback.ts:195
+#: src/hooks/useSwapCallback.ts:367
 msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
 msgstr ""
 
@@ -1576,7 +1576,7 @@ msgstr "Sự khác biệt giữa giá thị trường và giá ước tính theo
 #~ msgid "The difference between the market price and your price due to trade size."
 #~ msgstr "Sự khác biệt giữa giá thị trường và giá của bạn theo quy mô giao dịch."
 
-#: src/hooks/useSwapCallback.ts:191
+#: src/hooks/useSwapCallback.ts:363
 msgid "The input token cannot be transferred. There may be an issue with the input token."
 msgstr ""
 
@@ -1584,8 +1584,8 @@ msgstr ""
 msgid "The onchain oracle that tracks the pricing for this pair"
 msgstr "Oracle hợp đồng thông minh theo dõi giá cho cặp tiền tệ này"
 
-#: src/hooks/useSwapCallback.ts:193
-#: src/hooks/useSwapCallback.ts:201
+#: src/hooks/useSwapCallback.ts:365
+#: src/hooks/useSwapCallback.ts:373
 msgid "The output token cannot be transferred. There may be an issue with the output token."
 msgstr ""
 
@@ -1594,7 +1594,7 @@ msgstr ""
 #~ msgid "The transaction cannot succeed due to error: {0}. This is probably an issue with one of the tokens you are swapping."
 #~ msgstr "Giao dịch không thể thành công do lỗi: {0} . Đây có thể là sự cố với một trong những token bạn đang hoán đổi."
 
-#: src/hooks/useSwapCallback.ts:186
+#: src/hooks/useSwapCallback.ts:358
 msgid "The transaction could not be sent because the deadline has passed. Please check that your transaction deadline is not too low."
 msgstr ""
 
@@ -1610,11 +1610,11 @@ msgstr "Những điều bạn có thể làm với SUSHI của mình"
 msgid "This token doesn't appear on the active token list(s). Make sure this is the token that you want to trade."
 msgstr ""
 
-#: src/hooks/useSwapCallback.ts:199
+#: src/hooks/useSwapCallback.ts:371
 msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance."
 msgstr ""
 
-#: src/hooks/useSwapCallback.ts:189
+#: src/hooks/useSwapCallback.ts:361
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
 msgstr "Giao dịch này sẽ không thành công do biến động giá hoặc phí chuyển nhượng. Hãy thử tăng khả năng chịu trượt giá của bạn."
 
@@ -1701,7 +1701,7 @@ msgstr "Thời hạn giao dịch"
 #~ msgid "Transactions"
 #~ msgstr "Giao dịch"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:595
+#: src/pages/exchange/swap/[[...tokens]].tsx:597
 msgid "Try enabling multi-hop trades"
 msgstr "Thử bật giao dịch nhiều bước"
 
@@ -1712,7 +1712,7 @@ msgstr "Bật chế độ Chuyên gia"
 #~ msgid "Unknown error"
 #~ msgstr "Lỗi không xác định"
 
-#: src/hooks/useSwapCallback.ts:207
+#: src/hooks/useSwapCallback.ts:379
 msgid "Unknown error{0}. Try increasing your slippage tolerance."
 msgstr ""
 
@@ -1727,11 +1727,11 @@ msgid "Unstaked"
 msgstr "Đã hủy đặt cược"
 
 #: src/pages/exchange/add/[[...tokens]].tsx:453
-#: src/pages/exchange/swap/[[...tokens]].tsx:579
+#: src/pages/exchange/swap/[[...tokens]].tsx:581
 msgid "Unsupported Asset"
 msgstr "Tài sản không được hỗ trợ"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:589
+#: src/pages/exchange/swap/[[...tokens]].tsx:591
 msgid "Unwrap"
 msgstr "Mở bọc"
 
@@ -1850,7 +1850,7 @@ msgstr "Rút tiền"
 #~ msgid "Withdraw {assetSymbol}"
 #~ msgstr "Rút tiền {assetSymbol}"
 
-#: src/pages/exchange/swap/[[...tokens]].tsx:587
+#: src/pages/exchange/swap/[[...tokens]].tsx:589
 msgid "Wrap"
 msgstr "Bọc lại"
 
