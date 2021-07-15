@@ -11,7 +11,7 @@ import {
   Trade as V2Trade,
 } from '@sushiswap/sdk'
 import { isAddress, isZero } from '../functions/validate'
-import { useFactoryContract, useRouterContract, useLimitOrderContract, useMidRouterContract } from './useContract'
+import { useFactoryContract, useRouterContract, useRegistryContract, useMidRouterContract } from './useContract'
 
 import { ArcherRouter } from '../functions/archerRouter'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -187,7 +187,7 @@ export function useLimitOrderSwapCallArguments(
 
   const argentWalletContract = useArgentWalletContract()
 
-  const limitOrderContract = useLimitOrderContract()
+  const registryContract = useRegistryContract()
   const midRouterContract = useMidRouterContract()
 
   const [archerETHTip] = useUserArcherETHTip()
@@ -308,13 +308,13 @@ export function useLimitOrderSwapCallArguments(
           true,
           false,
         ]
-        const wrapperCalldata = limitOrderContract.interface.encodeFunctionData('newReq', wrapperArgs)
+        const wrapperCalldata = registryContract.interface.encodeFunctionData('newReq', wrapperArgs)
         // Cap original value with autonomy fee - 0.01 ether
         const wrapperValue = BigNumber.from(value).add(ethers.utils.parseEther('0.01')).toHexString()
         console.log('VALUE CHANGE:', value, wrapperValue)
-        console.log('LIMIT ORDER CONTRACT:', limitOrderContract.address)
+        console.log('LIMIT ORDER CONTRACT:', registryContract.address)
         return {
-          address: limitOrderContract.address,
+          address: registryContract.address,
           calldata: wrapperCalldata,
           value: wrapperValue,
         }
@@ -333,7 +333,7 @@ export function useLimitOrderSwapCallArguments(
     routerContract,
     trade,
     useArcher,
-    limitOrderContract,
+    registryContract,
     midRouterContract,
   ])
 }

@@ -2,7 +2,7 @@
  * Autonomy Registry Contract
  * !! Only for Ropsten
  */
-export const LIMITORDER_CONTRACT_ADDRESS = '0xB82Ae7779aB1742734fCE32A4b7fDBCf020F2667'
+export const REGISTRY_CONTRACT_ADDRESS = '0xB82Ae7779aB1742734fCE32A4b7fDBCf020F2667'
 
 /**
  * Mid Router Contract (Uniswap V2)
@@ -10,7 +10,7 @@ export const LIMITORDER_CONTRACT_ADDRESS = '0xB82Ae7779aB1742734fCE32A4b7fDBCf02
  */
 export const MIDROUTER_CONTRACT_ADDRESS = '0x497EfdB750Ba9Fa9c57F23eFF09Ca3Cdd9d625A1'
 
-export const LIMITORDER_CONTRACT_ABI = [
+export const REGISTRY_CONTRACT_ABI = [
   {
     inputs: [
       { internalType: 'contract IERC20', name: 'AUTO', type: 'address' },

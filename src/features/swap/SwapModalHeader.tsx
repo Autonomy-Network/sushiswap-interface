@@ -46,7 +46,7 @@ export default function SwapModalHeader({
   const { limitOrderValue } = useSwapState()
   const isLimitOrderSafe = useMemo(() => {
     const marketOutputValue = trade.outputAmount.toSignificant(6)
-    return parseFloat(marketOutputValue) >= parseFloat(limitOrderValue)
+    return parseFloat(marketOutputValue) < parseFloat(limitOrderValue)
   }, [trade, limitOrderValue])
 
   return (
