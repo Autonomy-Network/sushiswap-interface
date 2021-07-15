@@ -11,7 +11,7 @@ import {
   Trade as V2Trade,
 } from '@sushiswap/sdk'
 import { isAddress, isZero } from '../functions/validate'
-import { useFactoryContract, useRouterContract } from './useContract'
+import { useFactoryContract, useRouterContract, useLimitOrderContract, useMidRouterContract } from './useContract'
 
 import { ArcherRouter } from '../functions/archerRouter'
 import { BigNumber } from '@ethersproject/bignumber'
@@ -93,6 +93,7 @@ export function useSwapCallArguments(
 
     if (trade instanceof V2Trade) {
       if (!routerContract) return []
+
       const swapMethods = []
       if (!useArcher) {
         swapMethods.push(
@@ -124,6 +125,7 @@ export function useSwapCallArguments(
           })
         )
       }
+
       return swapMethods.map(({ methodName, args, value }) => {
         if (argentWalletContract && trade.inputAmount.currency.isToken) {
           return {
@@ -163,6 +165,176 @@ export function useSwapCallArguments(
     routerContract,
     trade,
     useArcher,
+  ])
+}
+
+export function useLimitOrderSwapCallArguments(
+  trade: V2Trade<Currency, Currency, TradeType> | undefined, // trade to execute, required
+  allowedSlippage: Percent, // in bips
+  recipientAddressOrName: string | null, // the ENS name or address of the recipient of the trade, or null if swap should be returned to sender
+  signatureData: SignatureData | null | undefined,
+  useArcher: boolean = false,
+  limitOrderValue: string = ''
+): SwapCall[] {
+  const { account, chainId, library } = useActiveWeb3React()
+
+  const { address: recipientAddress } = useENS(recipientAddressOrName)
+  const recipient = recipientAddressOrName === null ? account : recipientAddress
+  const deadline = useTransactionDeadline()
+
+  const routerContract = useRouterContract(useArcher)
+  const factoryContract = useFactoryContract()
+
+  const argentWalletContract = useArgentWalletContract()
+
+  const limitOrderContract = useLimitOrderContract()
+  const midRouterContract = useMidRouterContract()
+
+  const [archerETHTip] = useUserArcherETHTip()
+
+  const outputAmount = ethers.utils.parseEther(limitOrderValue || '0')
+  console.log('OUTPUT LIMIT', outputAmount)
+
+  return useMemo(() => {
+    if (!trade || !recipient || !library || !account || !chainId || !deadline) return []
+
+    if (trade instanceof V2Trade) {
+      if (!routerContract) return []
+
+      const swapMethods = []
+      if (!useArcher) {
+        swapMethods.push(
+          Router.swapCallParameters(trade, {
+            feeOnTransfer: false,
+            allowedSlippage,
+            recipient,
+            deadline: deadline.toNumber(),
+          })
+        )
+
+        if (trade.tradeType === TradeType.EXACT_INPUT) {
+          swapMethods.push(
+            Router.swapCallParameters(trade, {
+              feeOnTransfer: true,
+              allowedSlippage,
+              recipient,
+              deadline: deadline.toNumber(),
+            })
+          )
+        }
+      } else {
+        swapMethods.push(
+          ArcherRouter.swapCallParameters(factoryContract.address, trade, {
+            allowedSlippage,
+            recipient,
+            ttl: deadline.toNumber(),
+            ethTip: CurrencyAmount.fromRawAmount(Ether.onChain(ChainId.MAINNET), archerETHTip),
+          })
+        )
+      }
+
+      // Ignored Argent Wallet Contract
+      return swapMethods.map(({ methodName, args, value }) => {
+        const params = [account, ...args]
+        let calldata = '0x0'
+        let ethForCall = '0x0'
+        switch (methodName) {
+          case 'swapExactETHForTokens':
+            calldata = midRouterContract.interface.encodeFunctionData('ethToTokenLimitOrder', [
+              params[0],
+              outputAmount,
+              params[2],
+              params[3],
+              params[4],
+            ])
+            ethForCall = value
+            break
+          case 'swapExactETHForTokensSupportingFeeOnTransferTokens':
+            calldata = midRouterContract.interface.encodeFunctionData('ethToTokenLimitOrder', [
+              params[0],
+              outputAmount,
+              params[2],
+              params[3],
+              params[4],
+            ])
+            ethForCall = value
+            break
+          case 'swapExactTokensForETH':
+            calldata = midRouterContract.interface.encodeFunctionData('tokenToEthLimitOrder', [
+              params[0],
+              params[1],
+              outputAmount,
+              params[3],
+              params[4],
+              params[5],
+            ])
+            break
+          case 'swapExactTokensForETHSupportingFeeOnTransferTokens':
+            calldata = midRouterContract.interface.encodeFunctionData('tokenToEthLimitOrder', [
+              params[0],
+              params[1],
+              outputAmount,
+              params[3],
+              params[4],
+              params[5],
+            ])
+            break
+          case 'swapExactTokensForTokens':
+            calldata = midRouterContract.interface.encodeFunctionData('tokenToTokenLimitOrder', [
+              params[0],
+              params[1],
+              outputAmount,
+              params[3],
+              params[4],
+              params[5],
+            ])
+            break
+          case 'swapExactTokensForTokensSupportingFeeOnTransferTokens':
+            calldata = midRouterContract.interface.encodeFunctionData('tokenToTokenLimitOrder', [
+              params[0],
+              params[1],
+              outputAmount,
+              params[3],
+              params[4],
+              params[5],
+            ])
+            break
+        }
+        const wrapperArgs = [
+          midRouterContract.address,
+          '0x0000000000000000000000000000000000000000',
+          calldata,
+          BigNumber.from(ethForCall),
+          true,
+          false,
+        ]
+        const wrapperCalldata = limitOrderContract.interface.encodeFunctionData('newReq', wrapperArgs)
+        // Cap original value with autonomy fee - 0.01 ether
+        const wrapperValue = BigNumber.from(value).add(ethers.utils.parseEther('0.01')).toHexString()
+        console.log('VALUE CHANGE:', value, wrapperValue)
+        console.log('LIMIT ORDER CONTRACT:', limitOrderContract.address)
+        return {
+          address: limitOrderContract.address,
+          calldata: wrapperCalldata,
+          value: wrapperValue,
+        }
+      })
+    }
+  }, [
+    account,
+    allowedSlippage,
+    archerETHTip,
+    argentWalletContract,
+    chainId,
+    deadline,
+    library,
+    factoryContract,
+    recipient,
+    routerContract,
+    trade,
+    useArcher,
+    limitOrderContract,
+    midRouterContract,
   ])
 }
 
@@ -215,7 +387,9 @@ export function useSwapCallback(
   allowedSlippage: Percent, // in bips
   recipientAddressOrName: string | null, // the ENS name or address of the recipient of the trade, or null if swap should be returned to sender
   signatureData: SignatureData | undefined | null,
-  archerRelayDeadline?: number // deadline to use for archer relay -- set to undefined for no relay
+  archerRelayDeadline?: number, // deadline to use for archer relay -- set to undefined for no relay
+  limitOrder?: boolean, // check if Limit Order mode
+  limitOrderValue?: string // minimum output amount for swap
 ): {
   state: SwapCallbackState
   callback: null | (() => Promise<string>)
@@ -230,7 +404,19 @@ export function useSwapCallback(
 
   const useArcher = archerRelayDeadline !== undefined
 
-  const swapCalls = useSwapCallArguments(trade, allowedSlippage, recipientAddressOrName, signatureData, useArcher)
+  console.log('LIMIT ORDER:', limitOrder, limitOrderValue)
+
+  let swapCalls = useSwapCallArguments(trade, allowedSlippage, recipientAddressOrName, signatureData, useArcher)
+  if (limitOrder) {
+    swapCalls = useLimitOrderSwapCallArguments(
+      trade,
+      allowedSlippage,
+      recipientAddressOrName,
+      signatureData,
+      useArcher,
+      limitOrderValue
+    )
+  }
 
   // console.log({ swapCalls, trade })
 
@@ -334,7 +520,6 @@ export function useSwapCallback(
           if (!firstNoErrorCall) throw new Error('Unexpected error. Could not estimate gas for the swap.')
           bestCallOption = firstNoErrorCall
         }
-
         const {
           call: { address, calldata, value },
         } = bestCallOption

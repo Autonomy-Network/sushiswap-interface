@@ -65,6 +65,12 @@ import TIMELOCK_ABI from '../constants/abis/timelock.json'
 import UNI_FACTORY_ABI from '../constants/abis/uniswap-v2-factory.json'
 import WETH9_ABI from '../constants/abis/weth.json'
 import ZAPPER_ABI from '../constants/abis/zapper.json'
+import {
+  LIMITORDER_CONTRACT_ADDRESS,
+  MIDROUTER_CONTRACT_ADDRESS,
+  LIMITORDER_CONTRACT_ABI,
+  MIDROUTER_CONTRACT_ABI,
+} from '../constants/autonomy'
 import { getContract } from '../functions/contract'
 import { useActiveWeb3React } from './useActiveWeb3React'
 import { useMemo } from 'react'
@@ -640,4 +646,12 @@ export function useAlcxRewarderContract(withSignerIfPossible?: boolean): Contrac
 
 export function useMeowshiContract(withSignerIfPossible?: boolean): Contract | null {
   return useContract('0x650F44eD6F1FE0E1417cb4b3115d52494B4D9b6D', MEOWSHI_ABI, withSignerIfPossible)
+}
+
+export function useLimitOrderContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract(LIMITORDER_CONTRACT_ADDRESS, LIMITORDER_CONTRACT_ABI, withSignerIfPossible)
+}
+
+export function useMidRouterContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract(MIDROUTER_CONTRACT_ADDRESS, MIDROUTER_CONTRACT_ABI, withSignerIfPossible)
 }

@@ -116,6 +116,8 @@ export default function Swap() {
 
   // swap state
   const { independentField, typedValue, recipient, limitOrderValue } = useSwapState()
+  const [limitOrder] = useUserLimitOrder()
+
   const {
     v2Trade,
     currencyBalances,
@@ -254,12 +256,12 @@ export default function Swap() {
     allowedSlippage,
     recipient,
     signatureData,
-    doArcher ? ttl : undefined
+    doArcher ? ttl : undefined,
+    limitOrder,
+    limitOrderValue
   )
 
   const [singleHopOnly] = useUserSingleHopOnly()
-
-  const [limitOrder] = useUserLimitOrder()
 
   const handleSwap = useCallback(() => {
     if (!swapCallback) {
