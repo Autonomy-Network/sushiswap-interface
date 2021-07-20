@@ -4,7 +4,6 @@ import { t } from '@lingui/macro'
 import Button, { ButtonProps } from '../../components/Button'
 import React, { FC, useCallback, useState } from 'react'
 import useLimitOrderApproveCallback, { BentoApprovalState } from '../../hooks/useLimitOrderApproveCallback'
-import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp'
 import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
 import { useSwapCallback } from '../../hooks/useSwapCallback'
 import { ApprovalState, useApproveCallback } from '../../hooks'
@@ -61,23 +60,6 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
     approvalState === BentoApprovalState.PENDING ||
     depositPending ||
     tokenApprovalState === ApprovalState.PENDING
-
-  const blockTimestamp = useCurrentBlockTimestamp()
-  let ttl
-  switch (orderExpiration.value) {
-    case OrderExpiration.hour:
-      ttl = 3600
-      break
-    case OrderExpiration.day:
-      ttl = 86400
-      break
-    case OrderExpiration.week:
-      ttl = 604800
-      break
-    case OrderExpiration.never:
-      ttl = null
-      break
-  }
 
   const handler = useCallback(async () => {
     let endTime
