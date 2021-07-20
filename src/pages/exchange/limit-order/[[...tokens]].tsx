@@ -58,7 +58,7 @@ function LimitOrder() {
     useCurrency(loadedUrlParams?.outputCurrencyId),
   ]
 
-  const pairs = (limitOrderPairList.pairs[chainId] || []).map(([token0, token1]) => [token0.address, token1.address])
+  // const pairs = (limitOrderPairList.pairs[chainId] || []).map(([token0, token1]) => [token0.address, token1.address])
 
   // token warning stuff
   const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false)
@@ -167,45 +167,47 @@ function LimitOrder() {
     return i18n._(t`${formatPercent(pct)} ${sign} market rate`)
   }, [limitPrice, dependentField, currencies, currentPrice, i18n])
 
-  useEffect(() => {
-    if (
-      pairs &&
-      currencies[Field.INPUT] &&
-      currencies[Field.OUTPUT] &&
-      !pairs.find((el) =>
-        areEqual(el, [currencies[Field.INPUT].wrapped.address, currencies[Field.OUTPUT].wrapped.address])
-      )
-    ) {
-      setCurrencyInputPanelError('Invalid pair')
-    } else if (currencyInputPanelError === 'Invalid pair') {
-      setCurrencyInputPanelError('')
-    }
-  }, [currencies, currencyInputPanelError, pairs])
+  // useEffect(() => {
+  //   if (
+  //     pairs &&
+  //     currencies[Field.INPUT] &&
+  //     currencies[Field.OUTPUT] &&
+  //     !pairs.find((el) =>
+  //       areEqual(el, [currencies[Field.INPUT].wrapped.address, currencies[Field.OUTPUT].wrapped.address])
+  //     )
+  //   ) {
+  //     setCurrencyInputPanelError('Invalid pair')
+  //   } else if (currencyInputPanelError === 'Invalid pair') {
+  //     setCurrencyInputPanelError('')
+  //   }
+  // }, [currencies, currencyInputPanelError, pairs])
 
-  const inputTokenList = useMemo(() => {
-    if (pairs.length === 0) return []
-    return pairs.reduce((acc, [token0, token1]) => {
-      acc.push(token0)
-      acc.push(token1)
-      return acc
-    }, [])
-  }, [pairs])
+  // const inputTokenList = useMemo(() => {
+  //   if (pairs.length === 0) return []
+  //   return pairs.reduce((acc, [token0, token1]) => {
+  //     acc.push(token0)
+  //     acc.push(token1)
+  //     return acc
+  //   }, [])
+  // }, [pairs])
+  const inputTokenList = Object.keys(defaultTokens)
 
-  const outputTokenList = useMemo(() => {
-    if (pairs.length === 0) return []
-    if (currencies[Field.INPUT]) {
-      return pairs.reduce((acc, [token0, token1]) => {
-        if (currencies[Field.INPUT].wrapped.address === token0) acc.push(token1)
-        if (currencies[Field.INPUT].wrapped.address === token1) acc.push(token0)
-        return acc
-      }, [])
-    }
-    return pairs.reduce((acc, [token0, token1]) => {
-      acc.push(token0)
-      acc.push(token1)
-      return acc
-    }, [])
-  }, [currencies, pairs])
+  // const outputTokenList = useMemo(() => {
+  //   if (pairs.length === 0) return []
+  //   if (currencies[Field.INPUT]) {
+  //     return pairs.reduce((acc, [token0, token1]) => {
+  //       if (currencies[Field.INPUT].wrapped.address === token0) acc.push(token1)
+  //       if (currencies[Field.INPUT].wrapped.address === token1) acc.push(token0)
+  //       return acc
+  //     }, [])
+  //   }
+  //   return pairs.reduce((acc, [token0, token1]) => {
+  //     acc.push(token0)
+  //     acc.push(token1)
+  //     return acc
+  //   }, [])
+  // }, [currencies, pairs])
+  const outputTokenList = Object.keys(defaultTokens)
 
   return (
     <>
@@ -235,7 +237,6 @@ function LimitOrder() {
               <CurrencyInputPanel
                 className="rounded-t"
                 id="swap-currency-input"
-                topAdornment={<PayFromToggle />}
                 bottomAdornment={<BalancePanel />}
                 selectComponent={
                   <CurrencySelect
@@ -376,6 +377,6 @@ function LimitOrder() {
   )
 }
 
-LimitOrder.Guard = NetworkGuard([ChainId.MATIC])
+LimitOrder.Guard = NetworkGuard([ChainId.ROPSTEN])
 
 export default LimitOrder

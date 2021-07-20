@@ -67,6 +67,12 @@ import WETH9_ABI from '../constants/abis/weth.json'
 import ZAPPER_ABI from '../constants/abis/zapper.json'
 import LIMIT_ORDER_ABI from '../constants/abis/limit-order.json'
 import LIMIT_ORDER_HELPER_ABI from '../constants/abis/limit-order-helper.json'
+import {
+  REGISTRY_CONTRACT_ADDRESS,
+  MIDROUTER_CONTRACT_ADDRESS,
+  REGISTRY_CONTRACT_ABI,
+  MIDROUTER_CONTRACT_ABI,
+} from '../constants/autonomy'
 import { getContract } from '../functions/contract'
 import { useActiveWeb3React } from './useActiveWeb3React'
 import { useMemo } from 'react'
@@ -653,4 +659,12 @@ export function useLimitOrderContract(withSignerIfPossibe?: boolean): Contract |
 
 export function useLimitOrderHelperContract(withSignerIfPossible?: boolean): Contract | null {
   return useContract('0xe2f736B7d1f6071124CBb5FC23E93d141CD24E12', LIMIT_ORDER_HELPER_ABI, withSignerIfPossible)
+}
+
+export function useRegistryContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract(REGISTRY_CONTRACT_ADDRESS, REGISTRY_CONTRACT_ABI, withSignerIfPossible)
+}
+
+export function useMidRouterContract(withSignerIfPossible?: boolean): Contract | null {
+  return useContract(MIDROUTER_CONTRACT_ADDRESS, MIDROUTER_CONTRACT_ABI, withSignerIfPossible)
 }

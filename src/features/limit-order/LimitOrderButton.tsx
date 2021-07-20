@@ -4,10 +4,12 @@ import { t } from '@lingui/macro'
 import Button, { ButtonProps } from '../../components/Button'
 import React, { FC, useCallback, useState } from 'react'
 import useLimitOrderApproveCallback, { BentoApprovalState } from '../../hooks/useLimitOrderApproveCallback'
+import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp'
 import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
+import { useSwapCallback } from '../../hooks/useSwapCallback'
 import { ApprovalState, useApproveCallback } from '../../hooks'
 import { BENTOBOX_ADDRESS } from '../../constants/kashi'
-import { ChainId, Currency } from '@sushiswap/sdk'
+import { ChainId, Currency, Percent } from '@sushiswap/sdk'
 import Dots from '../../components/Dots'
 import { useAddPopup, useWalletModalToggle } from '../../state/application/hooks'
 import { useDerivedLimitOrderInfo, useLimitOrderState } from '../../state/limit-order/hooks'
@@ -60,6 +62,23 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
     depositPending ||
     tokenApprovalState === ApprovalState.PENDING
 
+  const blockTimestamp = useCurrentBlockTimestamp()
+  let ttl
+  switch (orderExpiration.value) {
+    case OrderExpiration.hour:
+      ttl = 3600
+      break
+    case OrderExpiration.day:
+      ttl = 86400
+      break
+    case OrderExpiration.week:
+      ttl = 604800
+      break
+    case OrderExpiration.never:
+      ttl = null
+      break
+  }
+
   const handler = useCallback(async () => {
     let endTime
     switch (orderExpiration.value) {
@@ -74,6 +93,7 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
         break
       case OrderExpiration.never:
         endTime = Number.MAX_SAFE_INTEGER
+        break
     }
 
     const order = new LimitOrder(
@@ -107,6 +127,38 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
     }
   }, [account, addPopup, chainId, library, mutate, orderExpiration.value, parsedAmounts, recipient])
 
+  const { callback: swapCallback, error: limitOrderError } = useSwapCallback(
+    undefined,
+    new Percent('100'),
+    recipient,
+    null,
+    undefined,
+    true
+  )
+
+  const autonomyHandler = useCallback(async () => {
+    if (!swapCallback) {
+      return
+    }
+    try {
+      const hash = await swapCallback()
+      setOpenConfirmationModal(false)
+
+      addPopup({
+        txn: { hash, summary: 'Limit order created', success: true },
+      })
+      await mutate()
+    } catch (e) {
+      addPopup({
+        txn: {
+          hash: null,
+          summary: `Error: ${e?.response?.data?.data}`,
+          success: false,
+        },
+      })
+    }
+  }, [swapCallback, addPopup])
+
   const deposit = useCallback(async () => {
     const tx = await execute(currency)
     setDepositPending(true)
@@ -119,7 +171,7 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
     <>
       <ConfirmLimitOrderModal
         open={openConfirmationModal}
-        onConfirm={() => handler()}
+        onConfirm={() => autonomyHandler()}
         onDismiss={() => setOpenConfirmationModal(false)}
       />
       <Button
@@ -133,6 +185,15 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
     </>
   )
 
+  if (limitOrderError) {
+    button = (
+      <Button disabled={true} color="gray" {...rest}>
+        {limitOrderError}
+      </Button>
+    )
+  }
+
+  /*
   if (depositPending)
     button = (
       <Button disabled={disabled} color={disabled ? 'gray' : color} onClick={deposit} {...rest}>
@@ -180,7 +241,7 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
         {i18n._(t`Deposit ${currency.symbol} into BentoBox`)}
       </Button>
     )
-
+  */
   return (
     <div className="flex flex-1 flex-col">
       {fallback && (

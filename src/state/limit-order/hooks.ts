@@ -3,7 +3,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Field, replaceLimitOrderState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
 import { useCurrency } from '../../hooks/Tokens'
-import { ChainId, Currency, CurrencyAmount, JSBI, NATIVE, Percent, Price, WNATIVE } from '@sushiswap/sdk'
+import {
+  ChainId,
+  Currency,
+  CurrencyAmount,
+  JSBI,
+  NATIVE,
+  Percent,
+  Price,
+  WNATIVE,
+  Trade as V2Trade,
+  TradeType,
+} from '@sushiswap/sdk'
 import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
 import { useCurrencyBalances } from '../wallet/hooks'
 import { isAddress, tryParseAmount } from '../../functions'
@@ -64,6 +75,8 @@ export function useLimitOrderActionHandlers(): {
 const denominator = (decimals: number = 18) => JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(decimals))
 
 export function useDerivedLimitOrderInfo(): {
+  isExactIn: boolean
+  trade: V2Trade<Currency, Currency, TradeType> | undefined
   currencies: { [field in Field]?: Currency }
   parsedAmounts: { [field in Field]?: CurrencyAmount<Currency> }
   walletBalances: { [field in Field]?: CurrencyAmount<Currency> }
@@ -200,6 +213,8 @@ export function useDerivedLimitOrderInfo(): {
   }
 
   return {
+    isExactIn,
+    trade,
     currencies,
     parsedAmounts,
     walletBalances,
