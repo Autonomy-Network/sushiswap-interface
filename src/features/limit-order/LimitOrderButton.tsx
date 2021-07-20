@@ -36,7 +36,7 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false)
 
   const { fromBentoBalance, orderExpiration, recipient } = useLimitOrderState()
-  const { parsedAmounts, inputError } = useDerivedLimitOrderInfo()
+  const { trade, parsedAmounts, inputError } = useDerivedLimitOrderInfo()
   const [approvalState, fallback, permit, onApprove, execute] = useLimitOrderApproveCallback()
   const { mutate } = useLimitOrders()
 
@@ -128,7 +128,7 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
   }, [account, addPopup, chainId, library, mutate, orderExpiration.value, parsedAmounts, recipient])
 
   const { callback: swapCallback, error: limitOrderError } = useSwapCallback(
-    undefined,
+    trade,
     new Percent('100'),
     recipient,
     null,

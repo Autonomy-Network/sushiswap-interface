@@ -434,7 +434,7 @@ export function useSwapCallback(
   const [archerETHTip] = useUserArcherETHTip()
 
   return useMemo(() => {
-    if ((!isLimitOrder && !trade) || !library || !account || !chainId) {
+    if (!trade || !library || !account || !chainId) {
       return {
         state: SwapCallbackState.INVALID,
         callback: null,
