@@ -217,7 +217,6 @@ export default function NetworkModal(): JSX.Element | null {
                 if (key === ChainId.MAINNET) {
                   library?.send('wallet_switchEthereumChain', [{ chainId: '0x1' }, account])
                 } else {
-                  console.log('$$$', params, account)
                   library?.send('wallet_addEthereumChain', [params, account])
                 }
               }}
