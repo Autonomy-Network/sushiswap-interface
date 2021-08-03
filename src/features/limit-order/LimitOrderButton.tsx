@@ -111,11 +111,11 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
 
   const { callback: swapCallback, error: limitOrderError } = useSwapCallback(
     trade,
-    new Percent('100'),
+    new Percent('1'),
     recipient,
     null,
     undefined,
-    true
+    'limit-order'
   )
 
   const autonomyHandler = useCallback(async () => {

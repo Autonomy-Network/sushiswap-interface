@@ -8,7 +8,7 @@ export const REGISTRY_CONTRACT_ADDRESS = '0xB82Ae7779aB1742734fCE32A4b7fDBCf020F
  * Mid Router Contract (Uniswap V2)
  * !! Only for Ropsten
  */
-export const MIDROUTER_CONTRACT_ADDRESS = '0x497EfdB750Ba9Fa9c57F23eFF09Ca3Cdd9d625A1'
+export const MIDROUTER_CONTRACT_ADDRESS = '0x5afc709047E113267f46e47f6cdeA6466614D99C'
 
 export const REGISTRY_CONTRACT_ABI = [
   {
@@ -429,8 +429,8 @@ export const MIDROUTER_CONTRACT_ABI = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'sender',
+        internalType: 'contract IUniswapV2Router02',
+        name: 'uni',
         type: 'address',
       },
       {
@@ -462,8 +462,51 @@ export const MIDROUTER_CONTRACT_ABI = [
   {
     inputs: [
       {
+        internalType: 'contract IUniswapV2Router02',
+        name: 'uni',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountOutMin',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountOutMax',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address[]',
+        name: 'path',
+        type: 'address[]',
+      },
+      {
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'deadline',
+        type: 'uint256',
+      },
+    ],
+    name: 'ethToTokenStopLoss',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address payable',
         name: 'sender',
+        type: 'address',
+      },
+      {
+        internalType: 'contract IUniswapV2Router02',
+        name: 'uni',
         type: 'address',
       },
       {
@@ -505,6 +548,59 @@ export const MIDROUTER_CONTRACT_ABI = [
         type: 'address',
       },
       {
+        internalType: 'contract IUniswapV2Router02',
+        name: 'uni',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'inputAmount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountOutMin',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountOutMax',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address[]',
+        name: 'path',
+        type: 'address[]',
+      },
+      {
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'deadline',
+        type: 'uint256',
+      },
+    ],
+    name: 'tokenToEthStopLoss',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address payable',
+        name: 'sender',
+        type: 'address',
+      },
+      {
+        internalType: 'contract IUniswapV2Router02',
+        name: 'uni',
+        type: 'address',
+      },
+      {
         internalType: 'uint256',
         name: 'inputAmount',
         type: 'uint256',
@@ -536,16 +632,51 @@ export const MIDROUTER_CONTRACT_ABI = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'uni',
-    outputs: [
+    inputs: [
       {
-        internalType: 'contract IUniswapV2Router02',
-        name: '',
+        internalType: 'address payable',
+        name: 'sender',
         type: 'address',
       },
+      {
+        internalType: 'contract IUniswapV2Router02',
+        name: 'uni',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'inputAmount',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountOutMin',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'amountOutMax',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address[]',
+        name: 'path',
+        type: 'address[]',
+      },
+      {
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'deadline',
+        type: 'uint256',
+      },
     ],
-    stateMutability: 'view',
+    name: 'tokenToTokenStopLoss',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
 ]
