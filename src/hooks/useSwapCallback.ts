@@ -254,6 +254,7 @@ export function useAutonomySwapCallArguments(
         let verifySender = true
         switch (methodName) {
           case 'swapExactETHForTokens':
+          case 'swapETHForExactTokens':
           case 'swapExactETHForTokensSupportingFeeOnTransferTokens':
             swapMethod = tradeLimitType === 'limit-order' ? 'ethToTokenLimitOrder' : 'ethToTokenStopLoss'
             swapArgs = [params[0], outputAmount, params[2], params[3], params[4]]
@@ -265,6 +266,7 @@ export function useAutonomySwapCallArguments(
             verifySender = false
             break
           case 'swapExactTokensForETH':
+          case 'swapTokensForExactETH':
           case 'swapExactTokensForETHSupportingFeeOnTransferTokens':
             swapMethod = tradeLimitType === 'limit-order' ? 'tokenToEthLimitOrder' : 'tokenToEthStopLoss'
             swapArgs = [account, params[0], inputAmount, outputAmount, params[3], params[4], params[5]]
@@ -274,6 +276,7 @@ export function useAutonomySwapCallArguments(
             calldata = midRouterContract.interface.encodeFunctionData(swapMethod, swapArgs)
             break
           case 'swapExactTokensForTokens':
+          case 'swapTokensForExactTokens':
           case 'swapExactTokensForTokensSupportingFeeOnTransferTokens':
             swapMethod = tradeLimitType === 'limit-order' ? 'tokenToTokenLimitOrder' : 'tokenToTokenStopLoss'
             swapArgs = [account, params[0], inputAmount, outputAmount, params[3], params[4], params[5]]
@@ -291,6 +294,7 @@ export function useAutonomySwapCallArguments(
           verifySender,
           false,
         ]
+
         const wrapperCalldata = registryContract.interface.encodeFunctionData('newReq', wrapperArgs)
         // Cap original value with autonomy fee - 0.01 ether
         const wrapperValue = BigNumber.from(value).add(ethers.utils.parseEther('0.01')).toHexString()

@@ -22,9 +22,10 @@ import { AppDispatch } from '../../state'
 
 interface LimitOrderButtonProps extends ButtonProps {
   currency: Currency
+  tradeLimitType: 'limit-order' | 'stop-loss'
 }
 
-const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest }) => {
+const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, tradeLimitType, color, ...rest }) => {
   const { i18n } = useLingui()
   const { account, chainId, library } = useActiveWeb3React()
   const dispatch = useDispatch<AppDispatch>()
@@ -115,7 +116,7 @@ const LimitOrderButton: FC<LimitOrderButtonProps> = ({ currency, color, ...rest 
     recipient,
     null,
     undefined,
-    'limit-order'
+    tradeLimitType
   )
 
   const autonomyHandler = useCallback(async () => {

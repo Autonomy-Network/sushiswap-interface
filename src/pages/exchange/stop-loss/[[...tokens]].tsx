@@ -48,7 +48,7 @@ const areEqual = (first, second) => {
   return true
 }
 
-function LimitOrder() {
+function StopLoss() {
   const { i18n } = useLingui()
   const { chainId } = useActiveWeb3React()
 
@@ -141,8 +141,8 @@ function LimitOrder() {
         (dependentField === Field.INPUT ? currencies[Field.INPUT] : currencies[Field.OUTPUT]) ?? undefined
       )
 
-      if (parsedLimitPrice?.lessThan(parsedCurrentPrice)) {
-        setCurrencyInputPanelError(i18n._(t`This transaction is below market rate`))
+      if (parsedLimitPrice?.greaterThan(parsedCurrentPrice)) {
+        setCurrencyInputPanelError(i18n._(t`This transaction is above market rate`))
       } else {
         setCurrencyInputPanelError('')
       }
@@ -167,52 +167,13 @@ function LimitOrder() {
     return i18n._(t`${formatPercent(pct)} ${sign} market rate`)
   }, [limitPrice, dependentField, currencies, currentPrice, i18n])
 
-  // useEffect(() => {
-  //   if (
-  //     pairs &&
-  //     currencies[Field.INPUT] &&
-  //     currencies[Field.OUTPUT] &&
-  //     !pairs.find((el) =>
-  //       areEqual(el, [currencies[Field.INPUT].wrapped.address, currencies[Field.OUTPUT].wrapped.address])
-  //     )
-  //   ) {
-  //     setCurrencyInputPanelError('Invalid pair')
-  //   } else if (currencyInputPanelError === 'Invalid pair') {
-  //     setCurrencyInputPanelError('')
-  //   }
-  // }, [currencies, currencyInputPanelError, pairs])
-
-  // const inputTokenList = useMemo(() => {
-  //   if (pairs.length === 0) return []
-  //   return pairs.reduce((acc, [token0, token1]) => {
-  //     acc.push(token0)
-  //     acc.push(token1)
-  //     return acc
-  //   }, [])
-  // }, [pairs])
   const inputTokenList = Object.keys(defaultTokens)
-
-  // const outputTokenList = useMemo(() => {
-  //   if (pairs.length === 0) return []
-  //   if (currencies[Field.INPUT]) {
-  //     return pairs.reduce((acc, [token0, token1]) => {
-  //       if (currencies[Field.INPUT].wrapped.address === token0) acc.push(token1)
-  //       if (currencies[Field.INPUT].wrapped.address === token1) acc.push(token0)
-  //       return acc
-  //     }, [])
-  //   }
-  //   return pairs.reduce((acc, [token0, token1]) => {
-  //     acc.push(token0)
-  //     acc.push(token1)
-  //     return acc
-  //   }, [])
-  // }, [currencies, pairs])
   const outputTokenList = Object.keys(defaultTokens)
 
   return (
     <>
       <Head>
-        <title>{i18n._(t`Limit order`)} | Sushi</title>
+        <title>{i18n._(t`Stop Loss`)} | Sushi</title>
         <meta
           name="description"
           content="SushiSwap allows for swapping of ERC20 compatible tokens across multiple networks"
@@ -372,7 +333,7 @@ function LimitOrder() {
                 color="gradient"
                 className="font-bold"
                 currency={currencies[Field.INPUT]}
-                tradeLimitType="limit-order"
+                tradeLimitType="stop-loss"
               />
             </div>
           </div>
@@ -382,6 +343,6 @@ function LimitOrder() {
   )
 }
 
-LimitOrder.Guard = NetworkGuard([ChainId.ROPSTEN])
+StopLoss.Guard = NetworkGuard([ChainId.ROPSTEN])
 
-export default LimitOrder
+export default StopLoss

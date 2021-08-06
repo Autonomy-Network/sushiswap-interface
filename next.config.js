@@ -84,6 +84,18 @@ module.exports = withBundleAnalyzer(
           destination: '/exchange/limit-order/:token*',
         },
         {
+          source: '/stop-loss',
+          destination: '/exchange/stop-loss',
+        },
+        {
+          source: '/stop-loss/:token*',
+          destination: '/exchange/stop-loss/:token*',
+        },
+        {
+          source: '/stop-loss',
+          destination: '/exchange/stop-loss',
+        },
+        {
           source: '/open-order',
           destination: '/exchange/open-order',
         },
