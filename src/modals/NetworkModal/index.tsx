@@ -149,6 +149,17 @@ export const SUPPORTED_NETWORKS: {
     rpcUrls: ['https://forno.celo.org'],
     blockExplorerUrls: ['https://explorer.celo.org'],
   },
+  [ChainId.ROPSTEN]: {
+    chainId: '0x3',
+    chainName: 'Ropsten',
+    nativeCurrency: {
+      name: 'Ethereum',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: ['https://ropsten.infura.io/v3'],
+    blockExplorerUrls: ['https://ropsten.etherscan.io'],
+  },
 }
 
 export default function NetworkModal(): JSX.Element | null {
