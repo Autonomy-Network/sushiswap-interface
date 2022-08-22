@@ -3025,6 +3025,13 @@
     magic-string "^0.25.0"
     string.prototype.matchall "^4.0.6"
 
+"@sushiswap/bentobox-sdk@1.0.0-canary.113":
+  version "1.0.0-canary.113"
+  resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.113.tgz#8038d771d58f8ac1b5e8690ece54603190dd7808"
+  integrity sha512-Ynp2hpzEwPIsweRohM0k7dgXlGJOaOyg1jVgzxse+x85/zzh1rhTL7w6nYHlHlHlMprsEYYT7OJaIV83rbaXfA==
+  dependencies:
+    "@sushiswap/core-sdk" "1.0.0-canary.132"
+
 "@sushiswap/bentobox-sdk@1.0.0-canary.114":
   version "1.0.0-canary.114"
   resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.114.tgz#73cbc199d2b5534622edb31563a509c66c9249bc"
