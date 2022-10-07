@@ -3025,12 +3025,19 @@
     magic-string "^0.25.0"
     string.prototype.matchall "^4.0.6"
 
-"@sushiswap/bentobox-sdk@1.0.0-canary.119":
-  version "1.0.0-canary.119"
-  resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.119.tgz#4bd97fd40ffd3710a84df18f3ff9d5fd7f5929b3"
-  integrity sha512-6tUqDJY7wdI0KRNDHuBRFryje9n2/zyc/P/LTR0ovzLuc0PLjxP3vXj18M0Yz6lzZkf3/46ACynf5Y9DHKYr0Q==
+"@sushiswap/bentobox-sdk@1.0.0-canary.114":
+  version "1.0.0-canary.114"
+  resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.114.tgz#73cbc199d2b5534622edb31563a509c66c9249bc"
+  integrity sha512-C/LxzPtk6U/Ad/5iXj2nEpgspVCKOohkJYFWu1DWAohW+3RmjEeHacgPBZ564raatffrGyWl6JUcmF02yXXrYw==
   dependencies:
-    "@sushiswap/core-sdk" "1.0.0-canary.138"
+    "@sushiswap/core-sdk" "1.0.0-canary.133"
+
+"@sushiswap/bentobox-sdk@1.0.0-canary.175":
+  version "1.0.0-canary.175"
+  resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.175.tgz#4cb95659429d5c2ab163e610603260101cff3405"
+  integrity sha512-rzT/zdqmY+bW9gXZYjKlm0tFjC1kZEwYUcW9pi27FY5SYE2OL8fFiIDfDHh1vtgyw1VjvjOCd+IQu2bwbIww8g==
+  dependencies:
+    "@sushiswap/core-sdk" "1.0.0-canary.16"
 
 "@sushiswap/chainlink-whitelist@0.2.8":
   version "0.2.8"
@@ -3057,6 +3064,22 @@
   version "1.0.0-canary.138"
   resolved "https://registry.yarnpkg.com/@sushiswap/core-sdk/-/core-sdk-1.0.0-canary.138.tgz#0951635f3d1dc199a4a663dfb5f71afa65a437d8"
   integrity sha512-AIhSCpQSdcdNYEAkl0bkr3951f7sYMxu1RsAC3XyqOGEwMdJ4q+rF4XJA8nSTM6TeNZ1NwnH0K40cdg5YYiqJQ==
+  dependencies:
+    "@ethersproject/address" "^5.4.0"
+    "@ethersproject/bignumber" "^5.4.0"
+    "@ethersproject/providers" "^5.4.0"
+    "@ethersproject/solidity" "^5.4.0"
+    big.js "^6.1.1"
+    decimal.js-light "^2.5.0"
+    jsbi "^4.1.0"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.0"
+    toformat "^2.0.0"
+
+"@sushiswap/core-sdk@1.0.0-canary.16":
+  version "1.0.0-canary.16"
+  resolved "https://registry.yarnpkg.com/@sushiswap/core-sdk/-/core-sdk-1.0.0-canary.16.tgz#e3b42a442233c1fe2d058a0f8564a66667317bd5"
+  integrity sha512-eLcpnUcZDK8gM0JzASsa3AkeESvnYzpsMV1cJ0j8AT8T915tLh96LigvfnJb2DZG3EbDcbl23be/rxlcHIx3QQ==
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bignumber" "^5.4.0"
