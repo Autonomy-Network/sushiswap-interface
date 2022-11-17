@@ -3025,6 +3025,13 @@
     magic-string "^0.25.0"
     string.prototype.matchall "^4.0.6"
 
+"@sushiswap/bentobox-sdk@1.0.0-canary.114":
+  version "1.0.0-canary.114"
+  resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.114.tgz#73cbc199d2b5534622edb31563a509c66c9249bc"
+  integrity sha512-C/LxzPtk6U/Ad/5iXj2nEpgspVCKOohkJYFWu1DWAohW+3RmjEeHacgPBZ564raatffrGyWl6JUcmF02yXXrYw==
+  dependencies:
+    "@sushiswap/core-sdk" "1.0.0-canary.133"
+
 "@sushiswap/bentobox-sdk@1.0.0-canary.119":
   version "1.0.0-canary.119"
   resolved "https://registry.yarnpkg.com/@sushiswap/bentobox-sdk/-/bentobox-sdk-1.0.0-canary.119.tgz#4bd97fd40ffd3710a84df18f3ff9d5fd7f5929b3"
@@ -3074,10 +3081,10 @@
   resolved "https://registry.yarnpkg.com/@sushiswap/core/-/core-2.0.0-canary.1.tgz#91c938668282d463e4fce6e0cf4d320ce5f3768f"
   integrity sha512-6YFT4EKgm0XgfwCBsKx5HrDtRI6EvhZHipjBKegdTV0b2zKuXnmdyZ+RwPCr0mCKq2pKB0qIiqCxfbgXYDlLCQ==
 
-"@sushiswap/default-token-list@^31.1.0":
-  version "31.1.0"
-  resolved "https://registry.yarnpkg.com/@sushiswap/default-token-list/-/default-token-list-31.1.0.tgz#d8babd1a1bfd0965b325aaae726beede930e7de3"
-  integrity sha512-uicM8HGvGaBUd+Rz/XcpLaXJt+3qfIp1IeZnNz/xB9blW7e/UT97gGG5pz2GeHaw/TQLf+2AZYqZgiWGJPmmiA==
+"@sushiswap/default-token-list@^39.2.0":
+  version "39.2.0"
+  resolved "https://registry.yarnpkg.com/@sushiswap/default-token-list/-/default-token-list-39.2.0.tgz#96494a9abaa77bbe7465ef744676edfa4adb2b1b"
+  integrity sha512-QRH7ZvM0AW4Nlmo683mlyyaX9J51A7Ke0ALxDANs0iMNoj4FF4QXHv/FZwGy2ljWLS/1omuhBQ8vwvF5d4JK6A==
 
 "@sushiswap/kashi-sdk@1.0.0-canary.105":
   version "1.0.0-canary.105"
